@@ -20,8 +20,13 @@ if (MSVC)
         # 4359: Alignment specifier is less than actual alignment
         # 4473: 'printf' not enough arguments passed for format string
         #       (this happens in an assert check at btDantzigLCP.cpp(1568)
-        target_compile_options(Bullet PUBLIC /wd4359 PRIVATE /wd4473)
+        # 4267: UWP: conversion from size_t to long, possible loss of data
+        target_compile_options(Bullet PUBLIC /wd4359 PRIVATE /wd4473 /wd4244 /wd4267)    
     endif()
+    # 4244: UWP: conversion from double to float
+    # 4305: UWP: truncation from double to btScalar
+    # 4996: UWP: this function or variable ma be unsafe...
+    target_compile_options(Bullet PRIVATE /wd4244 /wd4305 /wd4996)
 endif()
 target_include_directories(Bullet PRIVATE bullet3/src)
 if (FIPS_CLANG)
